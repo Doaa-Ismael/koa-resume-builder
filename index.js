@@ -1,8 +1,3 @@
-const Koa = require('koa');
-const app = new Koa();
-
-app.use(async ctx => {
-    ctx.body = 'Hello World';
-});
+const { app } = require("./app");
 
 app.listen(3000);
