@@ -1,3 +1,9 @@
+const mongoose = require("mongoose");
+const dotEnv = require("dotenv");
+
 const { app } = require("./app");
 
-app.listen(3000);
+dotEnv.config();
+
+mongoose.connect(process.env.DATABASE_URL);
+app.listen(process.env.PORT || 3000);
