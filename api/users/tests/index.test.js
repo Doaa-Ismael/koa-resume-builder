@@ -55,7 +55,7 @@ describe("User API", () => {
       await request(app.callback()).post(API_URLS.USER_REGISTER).send(user);
     });
 
-    it("Should login successfully with valid credentials", async () => {
+    it("should login successfully with valid credentials", async () => {
       const response = await request(app.callback())
         .post(API_URLS.USER_LOGIN)
         .send(user);
@@ -64,7 +64,7 @@ describe("User API", () => {
       // expect(response.token).toBeTruthy();
     });
 
-    it("Should not login if the credentials is invalid", async () => {
+    it("should not login if the credentials is invalid", async () => {
       const response = await request(app.callback())
         .post(API_URLS.USER_LOGIN)
         .send({ ...user, password: "hh" });
@@ -73,7 +73,7 @@ describe("User API", () => {
       expect(response.token).toBeFalsy();
     });
 
-    it("Should not login if the credentials is missing", async () => {
+    it("should not login if the credentials is missing", async () => {
       const response = await request(app.callback())
         .post(API_URLS.USER_LOGIN)
         .send({ ...user, password: null });
