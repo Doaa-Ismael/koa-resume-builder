@@ -2,22 +2,20 @@ const Router = require("@koa/router");
 const passport = require("koa-passport");
 
 const { API_URLS } = require("../../constants");
-const { Resume } = require("../../models");
+const { createResume, updateResume } = require("./contoller");
 
 const resumeRouter = new Router();
 
 resumeRouter.post(
   API_URLS.CREATE_RESUME,
   passport.authenticate("jwt", { session: false }),
-  async (ctx, user) => {
-    try {
-      const resume = await Resume.create({ user_id: user._id });
-      ctx.status = 201;
-      ctx.body = { resume };
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  createResume
+);
+
+resumeRouter.patch(
+  API_URLS.UPDATE_RESUME,
+  passport.authenticate("jwt", { session: false }),
+  updateResume
 );
 
 module.exports = resumeRouter;

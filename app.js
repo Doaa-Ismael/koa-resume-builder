@@ -8,7 +8,7 @@ const dotEnv = require("dotenv");
 dotEnv.config();
 
 const userRouter = require("./api/users/routes");
-const resumeRouter = require("./api/resume/routes");
+const resumeRouter = require("./api/resumes/routes");
 
 const app = new Koa();
 const router = new Router();
