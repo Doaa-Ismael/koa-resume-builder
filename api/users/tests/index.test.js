@@ -4,14 +4,6 @@ const { app } = require("../../../app");
 const { API_URLS } = require("../../../constants");
 
 describe("User API", () => {
-  let server;
-  beforeEach(() => {
-    server = app.listen(3001);
-  });
-  afterEach(() => {
-    server.close();
-  });
-
   describe("Register", () => {
     it("should create the user if name and password are valid", async () => {
       const response = await request(app.callback())

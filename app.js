@@ -8,6 +8,7 @@ const dotEnv = require("dotenv");
 dotEnv.config();
 
 const userRouter = require("./api/users/routes");
+const resumeRouter = require("./api/resume/routes");
 
 const app = new Koa();
 const router = new Router();
@@ -26,9 +27,12 @@ passport.use(
     else next(null, false);
   })
 );
+passport.serializeUser((user, next) => next(null, user));
+passport.deserializeUser((obj, next) => next(null, obj));
 
 // routes
 app.use(userRouter.routes());
+app.use(resumeRouter.routes());
 
 module.exports = {
   app,

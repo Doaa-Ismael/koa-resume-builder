@@ -7,11 +7,13 @@ const registerUser = async (ctx, next) => {
     ctx.status = 400;
     return next();
   }
-
   try {
     const user = await User.create(ctx.request.body);
     ctx.status = 201;
-    ctx.body = { token: user.generateToken() };
+    ctx.body = {
+      token: user.generateToken(),
+      user: { ...user, password: null },
+    };
   } catch (e) {
     console.log({ e });
     if (e.code === MongooseErrorCodes.DUPLICATE_RECORD) {
