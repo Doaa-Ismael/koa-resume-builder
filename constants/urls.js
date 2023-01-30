@@ -3,6 +3,7 @@ const API_URLS = {
   LOGIN_USER: "/users/login",
   CREATE_RESUME: "/resumes/",
   UPDATE_RESUME: "/resumes/:id",
+  GET_RESUME: "/resumes/:id",
 };
 
 module.exports = API_URLS;

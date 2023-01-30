@@ -8,7 +8,7 @@ describe("Resume", () => {
   let token = "",
     user = null;
   beforeAll(async () => {
-    // TODO: We should user random generator for mocked data
+    // TODO: use random generator for mocked data
     const registrationResponse = await request(app.callback())
       .post(API_URLS.REGISTER_USER)
       .send({ userName: "John Doee", password: "12345678" });
@@ -83,6 +83,20 @@ describe("Resume", () => {
   });
 
   describe("GET", () => {
-    it.todo("should get resume to authenticated users");
+    let resume;
+    beforeAll(async () => {
+      const response = await request(app.callback())
+        .post(API_URLS.CREATE_RESUME)
+        .set({ Authorization: token });
+      resume = response.body.resume;
+    });
+
+    it("should get resume to authenticated users", async () => {
+      const response = await request(app.callback())
+        .get(API_URLS.GET_RESUME.replace(":id", resume._id))
+        .set({ Authorization: token });
+      expect(response.status).toEqual(200);
+      expect(response.body.resume).toBeTruthy();
+    });
   });
 });

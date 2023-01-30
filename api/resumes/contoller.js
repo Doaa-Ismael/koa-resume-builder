@@ -25,7 +25,22 @@ const updateResume = async (ctx) => {
   }
 };
 
+const getResume = async (ctx, user) => {
+  try {
+    const resume = await Resume.findOne({
+      user_id: user._id,
+      _id: ctx.params.id,
+    });
+    ctx.status = 200;
+    ctx.body = { resume };
+  } catch (e) {
+    ctx.status = 401;
+    console.log(e);
+  }
+};
+
 module.exports = {
   createResume,
   updateResume,
+  getResume,
 };
