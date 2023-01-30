@@ -9,9 +9,11 @@ const registerUser = async (ctx, next) => {
   }
 
   try {
-    await User.create(ctx.request.body);
+    const user = await User.create(ctx.request.body);
     ctx.status = 201;
+    ctx.body = { token: user.generateToken() };
   } catch (e) {
+    console.log({ e });
     if (e.code === MongooseErrorCodes.DUPLICATE_RECORD) {
       ctx.status = 409;
     } else {
@@ -40,6 +42,7 @@ const loginUser = async (ctx, next) => {
       ctx.status = 401;
     } else {
       ctx.status = 200;
+      ctx.body = { token: user.generateToken() };
     }
   } catch (e) {
     next(e);
