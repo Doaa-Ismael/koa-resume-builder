@@ -10,7 +10,7 @@ describe("Resume", () => {
   beforeAll(async () => {
     // TODO: We should user random generator for mocked data
     const registrationResponse = await request(app.callback())
-      .post(API_URLS.USER_REGISTER)
+      .post(API_URLS.REGISTER_USER)
       .send({ userName: "John Doee", password: "12345678" });
     token = `BEARER ${registrationResponse.body.token}`;
     user = registrationResponse.body.user;

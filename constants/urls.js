@@ -1,6 +1,6 @@
 const API_URLS = {
-  USER_REGISTER: "/users/register",
-  USER_LOGIN: "/users/login",
+  REGISTER_USER: "/users/register",
+  LOGIN_USER: "/users/login",
   CREATE_RESUME: "/resumes/",
   UPDATE_RESUME: "/resumes/:id",
 };

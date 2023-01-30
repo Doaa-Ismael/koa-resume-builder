@@ -5,7 +5,7 @@ const { API_URLS } = require("../../constants");
 
 const userRouter = new Router();
 
-userRouter.post(API_URLS.USER_REGISTER, registerUser);
-userRouter.post(API_URLS.USER_LOGIN, loginUser);
+userRouter.post(API_URLS.REGISTER_USER, registerUser);
+userRouter.post(API_URLS.LOGIN_USER, loginUser);
 
 module.exports = userRouter;
