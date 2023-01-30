@@ -1,7 +1,4 @@
-const Resume = require("./Resume");
-const User = require("./User");
+import Resume from "./Resume";
+import User from "./User";
 
-module.exports = {
-  Resume,
-  User,
-};
+export { Resume, User };

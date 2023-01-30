@@ -1,5 +1,5 @@
-const { MongoMemoryServer } = require("mongodb-memory-server");
-const mongoose = require("mongoose");
+import { MongoMemoryServer } from "mongodb-memory-server";
+import mongoose from "mongoose";
 
 async function globalSetup() {
   const instance = await MongoMemoryServer.create();
@@ -11,4 +11,4 @@ async function globalSetup() {
   await mongoose.disconnect();
 }
 
-module.exports = globalSetup;
+export default globalSetup;

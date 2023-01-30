@@ -1,8 +1,8 @@
-const Router = require("@koa/router");
-const passport = require("koa-passport");
+import Router from "@koa/router";
+import passport from "koa-passport";
 
-const { API_URLS } = require("../../constants");
-const { createResume, updateResume, getResume } = require("./contoller");
+import { API_URLS } from "../../constants";
+import { createResume, updateResume, getResume } from "./contoller";
 
 const resumeRouter = new Router();
 
@@ -24,4 +24,4 @@ resumeRouter.get(
   getResume
 );
 
-module.exports = resumeRouter;
+export default resumeRouter;

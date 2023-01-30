@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const { app } = require("./app");
+import { app } from "./app.js";
 
 mongoose.connect(process.env.DATABASE_URL);
 app.listen(process.env.PORT || 3000);

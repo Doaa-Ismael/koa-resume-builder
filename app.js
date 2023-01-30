@@ -1,17 +1,15 @@
-const Koa = require("koa");
-const Router = require("@koa/router");
-const { koaBody } = require("koa-body");
-const passport = require("koa-passport");
-const { Strategy, ExtractJwt } = require("passport-jwt");
-const dotEnv = require("dotenv");
+import Koa from "koa";
+import { koaBody } from "koa-body";
+import passport from "koa-passport";
+import { Strategy, ExtractJwt } from "passport-jwt";
+import dotEnv from "dotenv";
 
 dotEnv.config();
 
-const userRouter = require("./api/users/routes");
-const resumeRouter = require("./api/resumes/routes");
+import userRouter from "./api/users/routes";
+import resumeRouter from "./api/resumes/routes";
 
-const app = new Koa();
-const router = new Router();
+export const app = new Koa();
 
 const passportOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -33,8 +31,3 @@ passport.deserializeUser((obj, next) => next(null, obj));
 // routes
 app.use(userRouter.routes());
 app.use(resumeRouter.routes());
-
-module.exports = {
-  app,
-  router,
-};

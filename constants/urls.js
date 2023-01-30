@@ -6,4 +6,4 @@ const API_URLS = {
   GET_RESUME: "/resumes/:id",
 };
 
-module.exports = API_URLS;
+export default API_URLS;

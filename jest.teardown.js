@@ -3,4 +3,4 @@ async function globalTeardown() {
   await instance.stop();
 }
 
-module.exports = globalTeardown;
+export default globalTeardown;

@@ -1,7 +1,4 @@
-const MongooseErrorCodes = require("./mongooseErrorCodes");
-const API_URLS = require("./urls");
+import MongooseErrorCodes from "./mongooseErrorCodes";
+import API_URLS from "./urls";
 
-module.exports = {
-  MongooseErrorCodes,
-  API_URLS,
-};
+export { MongooseErrorCodes, API_URLS };

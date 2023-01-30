@@ -1,6 +1,6 @@
-const { Resume } = require("../../models");
+import { Resume } from "../../models";
 
-const createResume = async (ctx, user) => {
+export const createResume = async (ctx, user) => {
   try {
     const resume = await Resume.create({ user_id: user._id });
     ctx.status = 201;
@@ -11,7 +11,7 @@ const createResume = async (ctx, user) => {
   }
 };
 
-const updateResume = async (ctx) => {
+export const updateResume = async (ctx) => {
   const resumeId = ctx.params.id;
   try {
     const resume = await Resume.findById(resumeId);
@@ -25,7 +25,7 @@ const updateResume = async (ctx) => {
   }
 };
 
-const getResume = async (ctx, user) => {
+export const getResume = async (ctx, user) => {
   try {
     const resume = await Resume.findOne({
       user_id: user._id,
@@ -37,10 +37,4 @@ const getResume = async (ctx, user) => {
     ctx.status = 401;
     console.log(e);
   }
-};
-
-module.exports = {
-  createResume,
-  updateResume,
-  getResume,
 };

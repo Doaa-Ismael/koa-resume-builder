@@ -1,7 +1,7 @@
-const User = require("./../../models/User");
-const { MongooseErrorCodes } = require("../../constants");
+import User from "./../../models/User";
+import { MongooseErrorCodes } from "../../constants";
 
-const registerUser = async (ctx, next) => {
+export const registerUser = async (ctx, next) => {
   const { userName, password } = ctx.request.body;
   if (!userName || !password) {
     ctx.status = 400;
@@ -24,7 +24,7 @@ const registerUser = async (ctx, next) => {
   }
 };
 
-const loginUser = async (ctx, next) => {
+export const loginUser = async (ctx, next) => {
   const { userName, password } = ctx.request.body;
   if (!userName || !password) {
     ctx.status = 400;
@@ -49,9 +49,4 @@ const loginUser = async (ctx, next) => {
   } catch (e) {
     next(e);
   }
-};
-
-module.exports = {
-  registerUser,
-  loginUser,
 };

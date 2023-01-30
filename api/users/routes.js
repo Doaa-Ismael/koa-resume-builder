@@ -1,11 +1,11 @@
-const Router = require("@koa/router");
+import Router from "@koa/router";
 
-const { registerUser, loginUser } = require("./contoller");
-const { API_URLS } = require("../../constants");
+import { registerUser, loginUser } from "./contoller";
+import { API_URLS } from "../../constants";
 
 const userRouter = new Router();
 
 userRouter.post(API_URLS.REGISTER_USER, registerUser);
 userRouter.post(API_URLS.LOGIN_USER, loginUser);
 
-module.exports = userRouter;
+export default userRouter;

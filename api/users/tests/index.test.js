@@ -1,7 +1,7 @@
-const request = require("supertest");
+import request from "supertest";
 
-const { app } = require("../../../app");
-const { API_URLS } = require("../../../constants");
+import { app } from "../../../app";
+import { API_URLS } from "../../../constants";
 
 describe("User API", () => {
   describe("Register", () => {

@@ -1,8 +1,8 @@
-const request = require("supertest");
+import request from "supertest";
 
-const { app } = require("../../../app");
-const { API_URLS } = require("../../../constants");
-const { Resume } = require("../../../models");
+import { app } from "../../../app";
+import { API_URLS } from "../../../constants";
+import { Resume } from "../../../models";
 
 describe("Resume", () => {
   let token = "",

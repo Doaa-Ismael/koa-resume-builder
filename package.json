@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon --watch",
-    "test": "jest .",
+    "dev": "nodemon --watch --experimental-modules --es-module-specifier-resolution=node",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest .",
     "lint": "eslint .",
     "prettier": "prettier --write ."
   },
