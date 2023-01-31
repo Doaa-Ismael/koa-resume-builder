@@ -30,4 +30,6 @@ passport.deserializeUser((obj, next) => next(null, obj));
 
 // routes
 app.use(userRouter.routes());
+app.use(userRouter.allowedMethods());
 app.use(resumeRouter.routes());
+app.use(resumeRouter.allowedMethods());
