@@ -3,13 +3,18 @@ import { koaBody } from "koa-body";
 import passport from "koa-passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import dotEnv from "dotenv";
+import Router from "@koa/router";
 
 dotEnv.config();
 
 import userRouter from "./api/users/routes";
 import resumeRouter from "./api/resumes/routes";
+import { API_PREFIX } from "./constants/urls.js";
 
 export const app = new Koa();
+const apiRouter = new Router({
+  prefix: API_PREFIX,
+});
 
 const passportOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -39,7 +44,11 @@ app.use(async (ctx, next) => {
 });
 
 // routes
-app.use(userRouter.routes());
-app.use(userRouter.allowedMethods());
-app.use(resumeRouter.routes());
-app.use(resumeRouter.allowedMethods());
+apiRouter.use(
+  userRouter.routes(),
+  userRouter.allowedMethods(),
+  resumeRouter.routes(),
+  resumeRouter.allowedMethods()
+);
+app.use(apiRouter.routes());
+app.use(apiRouter.allowedMethods());

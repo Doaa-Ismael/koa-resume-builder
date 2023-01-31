@@ -3,6 +3,7 @@ import request from "supertest";
 import { app } from "../../../app";
 import { API_URLS } from "../../../constants";
 import { Resume } from "../../../models";
+import { appendPrefix } from "../../../utils/testsHelpers.js";
 
 describe("Resume", () => {
   let token = "",
@@ -10,7 +11,7 @@ describe("Resume", () => {
   beforeAll(async () => {
     // TODO: use random generator for mocked data
     const registrationResponse = await request(app.callback())
-      .post(API_URLS.REGISTER_USER)
+      .post(appendPrefix(API_URLS.REGISTER_USER))
       .send({ userName: "John Doee", password: "12345678" });
     token = `BEARER ${registrationResponse.body.token}`;
     user = registrationResponse.body.user;
@@ -19,7 +20,7 @@ describe("Resume", () => {
   describe("POST", () => {
     it("should create resume to authenticated users", async () => {
       const response = await request(app.callback())
-        .post(API_URLS.CREATE_RESUME)
+        .post(appendPrefix(API_URLS.CREATE_RESUME))
         .set({ Authorization: token });
       expect(response.status).toEqual(201);
       const userResumes = await Resume.find({ user_id: user._id });
@@ -28,7 +29,7 @@ describe("Resume", () => {
 
     it("should not create resume to unauthenticated users", async () => {
       const response = await request(app.callback()).post(
-        API_URLS.CREATE_RESUME
+        appendPrefix(API_URLS.CREATE_RESUME)
       );
       expect(response.status).toEqual(401);
     });
@@ -54,11 +55,11 @@ describe("Resume", () => {
       const {
         body: { resume },
       } = await request(app.callback())
-        .post(API_URLS.CREATE_RESUME)
+        .post(appendPrefix(API_URLS.CREATE_RESUME))
         .set({ Authorization: token });
       updateResumeURL = API_URLS.UPDATE_RESUME.replace(":id", resume._id);
       const response1 = await request(app.callback())
-        .patch(updateResumeURL)
+        .patch(appendPrefix(updateResumeURL))
         .set({ Authorization: token })
         .send({ basicInfo });
       let updatedResumeSections = response1.body.resume.sections;
@@ -68,7 +69,7 @@ describe("Resume", () => {
         expect.objectContaining(basicInfo)
       );
       const response2 = await request(app.callback())
-        .patch(updateResumeURL)
+        .patch(appendPrefix(updateResumeURL))
         .set({ Authorization: token })
         .send({ positions });
       updatedResumeSections = response2.body.resume.sections;
@@ -86,14 +87,14 @@ describe("Resume", () => {
     let resume;
     beforeAll(async () => {
       const response = await request(app.callback())
-        .post(API_URLS.CREATE_RESUME)
+        .post(appendPrefix(API_URLS.CREATE_RESUME))
         .set({ Authorization: token });
       resume = response.body.resume;
     });
 
     it("should get resume to authenticated users", async () => {
       const response = await request(app.callback())
-        .get(API_URLS.GET_RESUME.replace(":id", resume._id))
+        .get(appendPrefix(API_URLS.GET_RESUME.replace(":id", resume._id)))
         .set({ Authorization: token });
       expect(response.status).toEqual(200);
       expect(response.body.resume).toBeTruthy();

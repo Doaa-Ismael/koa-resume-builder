@@ -1,3 +1,5 @@
+export const API_PREFIX = "/api";
+
 const API_URLS = {
   REGISTER_USER: "/users/register",
   LOGIN_USER: "/users/login",
