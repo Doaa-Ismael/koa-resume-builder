@@ -27,6 +27,16 @@ passport.use(
 );
 passport.serializeUser((user, next) => next(null, user));
 passport.deserializeUser((obj, next) => next(null, obj));
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    ctx.status = err.statusCode || err.status || 500;
+    ctx.body = {
+      message: err.message,
+    };
+  }
+});
 
 // routes
 app.use(userRouter.routes());
