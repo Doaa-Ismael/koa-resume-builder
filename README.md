@@ -23,6 +23,10 @@ Getting Started
     `yarn start`
 
 
+- Run tests
+
+    `yarn test`
+
 ### Available APIS
 don't forget to update values like auth header
 1) User registration
