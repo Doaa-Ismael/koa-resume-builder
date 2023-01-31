@@ -13,7 +13,7 @@ Getting Started
 
 - Install
 
-    `cd yarn install`
+    `cd resume-builder-backend  && yarn install`
 
 
 - Create `.env` file same as .env.example with needed values
