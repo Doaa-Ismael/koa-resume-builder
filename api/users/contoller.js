@@ -1,12 +1,7 @@
 import User from "./../../models/User";
 import { MongooseErrorCodes } from "../../constants";
 
-export const registerUser = async (ctx, next) => {
-  const { userName, password } = ctx.request.body;
-  if (!userName || !password) {
-    ctx.status = 400;
-    return next();
-  }
+export const registerUser = async (ctx) => {
   try {
     const user = await User.create(ctx.request.body);
     ctx.status = 201;
@@ -24,19 +19,14 @@ export const registerUser = async (ctx, next) => {
   }
 };
 
-export const loginUser = async (ctx, next) => {
+export const loginUser = async (ctx) => {
   const { userName, password } = ctx.request.body;
-  if (!userName || !password) {
-    ctx.status = 400;
-    return next();
-  }
-
   try {
     const user = await User.findOne({ userName });
 
     if (!user) {
       ctx.status = 401;
-      return next();
+      return;
     }
     const isMatching = await user.comparePassword(password);
 
@@ -47,6 +37,7 @@ export const loginUser = async (ctx, next) => {
       ctx.body = { token: user.generateToken() };
     }
   } catch (e) {
-    next(e);
+    console.log(e);
+    ctx.status = 400;
   }
 };
