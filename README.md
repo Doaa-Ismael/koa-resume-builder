@@ -13,7 +13,7 @@ Getting Started
 
 - Install
 
-    `cd resume-builder-backend  && yarn install`
+    `cd koa-resume-builder  && yarn install`
 
 
 - Create `.env` file same as .env.example with needed values
