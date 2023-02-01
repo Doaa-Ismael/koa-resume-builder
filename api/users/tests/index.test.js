@@ -11,7 +11,7 @@ describe("User API", () => {
         .post(appendPrefix(API_URLS.REGISTER_USER))
         .send({ userName: "John", password: "12345678" });
       expect(response.status).toEqual(201);
-      expect(response.body.token).toBeTruthy();
+      expect(response.headers["set-cookie"].length).toEqual(1);
     });
 
     it("should return 400 if data is missing", async () => {
@@ -56,7 +56,7 @@ describe("User API", () => {
         .send(user);
 
       expect(response.status).toEqual(200);
-      expect(response.body.token).toBeTruthy();
+      expect(response.headers["set-cookie"].length).toEqual(1);
     });
 
     it("should not login if the credentials is invalid", async () => {
@@ -65,7 +65,7 @@ describe("User API", () => {
         .send({ ...user, password: "hh" });
 
       expect(response.status).toEqual(401);
-      expect(response.body.token).toBeFalsy();
+      expect(response.headers["set-cookie"]).toBeFalsy();
     });
 
     it("should not login if the credentials is missing", async () => {
@@ -74,7 +74,7 @@ describe("User API", () => {
         .send({ ...user, password: null });
 
       expect(response.status).toEqual(400);
-      expect(response.body.token).toBeFalsy();
+      expect(response.headers["set-cookie"]).toBeFalsy();
     });
   });
 });

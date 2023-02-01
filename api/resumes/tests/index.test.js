@@ -13,7 +13,9 @@ describe("Resume", () => {
     const registrationResponse = await request(app.callback())
       .post(appendPrefix(API_URLS.REGISTER_USER))
       .send({ userName: "John Doee", password: "12345678" });
-    token = `BEARER ${registrationResponse.body.token}`;
+    token = registrationResponse.headers["set-cookie"][0]
+      .split(";")[0]
+      .split("=")[1];
     user = registrationResponse.body.user;
   });
 

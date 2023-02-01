@@ -4,11 +4,16 @@ import { MongooseErrorCodes } from "../../constants";
 export const registerUser = async (ctx) => {
   try {
     const user = await User.create(ctx.request.body);
+    const token = user.generateToken();
     ctx.status = 201;
     ctx.body = {
-      token: user.generateToken(),
       user: { ...user, password: null },
     };
+    ctx.cookies.set("Authorization", `Bearer ${token}`, {
+      httpOnly: true,
+      sameSite: "strict",
+      expires: new Date(360000 + Date.now()),
+    });
   } catch (e) {
     console.log({ e });
     if (e.code === MongooseErrorCodes.DUPLICATE_RECORD) {
@@ -33,8 +38,13 @@ export const loginUser = async (ctx) => {
     if (!isMatching) {
       ctx.status = 401;
     } else {
+      const token = user.generateToken();
       ctx.status = 200;
-      ctx.body = { token: user.generateToken() };
+      ctx.cookies.set("Authorization", `Bearer ${token}`, {
+        httpOnly: true,
+        sameSite: "strict",
+        expires: new Date(360000 + Date.now()),
+      });
     }
   } catch (e) {
     console.log(e);
